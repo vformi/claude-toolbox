@@ -14,6 +14,95 @@
       "category": "development",
       "source": "./plugins/vformi-toolkit",
       "homepage": "https://github.com/vformi/claude-toolbox/tree/main/plugins/vformi-toolkit"
+    },
+    {
+      "name": "superpowers",
+      "description": "Superpowers teaches Claude brainstorming, subagent-driven development with built-in code review, systematic debugging, and red/green TDD. Additionally, it teaches Claude how to author and test new skills.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/superpowers.git",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "feature-dev",
+      "description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
+      "author": { "name": "Anthropic", "email": "support@anthropic.com" },
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/feature-dev",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev"
+    },
+    {
+      "name": "github",
+      "description": "Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories, and interact with GitHub's full API directly from Claude Code.",
+      "author": { "name": "Anthropic", "email": "support@anthropic.com" },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/github",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/github"
+    },
+    {
+      "name": "claude-md-management",
+      "description": "Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.",
+      "author": { "name": "Anthropic", "email": "support@anthropic.com" },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/claude-md-management",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management"
+    },
+    {
+      "name": "security-guidance",
+      "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
+      "author": { "name": "Anthropic", "email": "support@anthropic.com" },
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/security-guidance",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics.",
+      "author": { "name": "Anthropic", "email": "support@anthropic.com" },
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/frontend-design",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design"
+    },
+    {
+      "name": "caveman",
+      "description": "Ultra-compressed communication mode. Cuts ~75% of tokens while keeping full technical accuracy.",
+      "author": { "name": "Julius Brussee", "url": "https://github.com/JuliusBrussee" },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/JuliusBrussee/caveman.git",
+        "path": ".",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/JuliusBrussee/caveman"
     }
   ]
 }
