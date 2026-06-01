@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-toolbox",
+  "description": "vformi's personal Claude Code stack: own skills plus references to upstream community plugins.",
+  "owner": {
+    "name": "vformi",
+    "url": "https://github.com/vformi"
+  },
+  "plugins": [
+    {
+      "name": "vformi-toolkit",
+      "description": "vformi's personal skills: PR implementation helper and workflow router between feature-dev and superpowers brainstorming.",
+      "author": { "name": "vformi" },
+      "category": "development",
+      "source": "./plugins/vformi-toolkit",
+      "homepage": "https://github.com/vformi/claude-toolbox/tree/main/plugins/vformi-toolkit"
+    }
+  ]
+}
