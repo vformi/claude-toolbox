@@ -20,9 +20,7 @@ This skill is an advisory router. It does not replace the downstream skills — 
 |-------------|----------|
 | Single-file edit, no new abstraction, no design questions | `feature-dev` — invoke `/feature-dev` |
 | New subsystem, more than 2 files, design needed | `superpowers:brainstorming` → then `writing-plans` |
-| Bug fix with clear cause | `superpowers:systematic-debugging`, no router needed |
-| Create new skill from scratch | `superpowers:writing-skills` (kept) — `skill-creator` only if eval/benchmarks needed |
-| Edit or tighten existing skill | `superpowers:writing-skills` |
+| Create or edit a skill | `superpowers:writing-skills` |
 | Ambiguous between the above | Ask user one clarifying question before dispatching |
 
 ## How to use
