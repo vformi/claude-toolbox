@@ -39,6 +39,24 @@ npm install -g typescript-language-server typescript
 
 Without this, the `typescript-lsp` plugin will fail to start.
 
+## One-shot install (CLI)
+
+If you prefer a shell script that installs the marketplace and all 9 plugins via the `claude` CLI:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/vformi/claude-toolbox/main/install.sh -o install.sh
+less install.sh   # review before running
+bash install.sh
+```
+
+The script installs `typescript-language-server` globally via npm if not already present (required by the `typescript-lsp` plugin), registers the marketplace, then installs each of the 9 plugins. Restart Claude Code (or `/reload-plugins`) afterwards.
+
+Direct pipe form (skips the review step — only do this if you trust the source):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/vformi/claude-toolbox/main/install.sh | bash
+```
+
 ## Interactive install (alternative)
 
 If you prefer to install one at a time, run these in a Claude Code session:
