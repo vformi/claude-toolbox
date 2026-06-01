@@ -1,0 +1,8 @@
+{
+  "name": "vformi-toolkit",
+  "description": "vformi's personal skills: PR implementation helper and workflow router between feature-dev and superpowers brainstorming.",
+  "version": "0.1.0",
+  "author": { "name": "vformi" },
+  "license": "MIT",
+  "keywords": ["skills", "pr", "workflow", "router"]
+}
