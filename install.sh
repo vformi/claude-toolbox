@@ -51,4 +51,4 @@ else
   echo "WARN: the following plugins failed to install: ${failed[*]}" >&2
 fi
 
-echo "Restart Claude Code (or run /reload-plugins in an active session) to load the plugins."
+echo "Run claude /plugins to see all installed plugins. Happy coding!"
