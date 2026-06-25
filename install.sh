@@ -33,6 +33,18 @@ if ! command -v typescript-language-server >/dev/null 2>&1; then
   fi
 fi
 
+if ! command -v codegraph >/dev/null 2>&1; then
+  echo "==> Installing CodeGraph CLI (code intelligence; not a plugin)..."
+  curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh || \
+    echo "WARN: CodeGraph CLI install failed. Install manually: https://github.com/colbymchenry/codegraph" >&2
+fi
+if command -v codegraph >/dev/null 2>&1; then
+  echo "NOTE: CodeGraph CLI present. To finish setup (interactive), run once per machine:"
+  echo "        codegraph install         # wire up agents + MCP server"
+  echo "      then once per repo:"
+  echo "        cd <repo> && codegraph init   # build the index (add .codegraph/ to .gitignore)"
+fi
+
 echo "==> Registering marketplace ${MARKETPLACE_NAME} from ${MARKETPLACE_REPO}..."
 claude plugin marketplace add "${MARKETPLACE_REPO}" || true
 
