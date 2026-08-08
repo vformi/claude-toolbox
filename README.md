@@ -85,6 +85,27 @@ After install, run `/reload-plugins` (or restart).
 
 This is necessary after I bump any upstream `ref` in `marketplace.json`. Skipping the `update` will leave you on the cached version.
 
+## CodeGraph (code intelligence, separate setup)
+
+[CodeGraph](https://github.com/colbymchenry/codegraph) is **not** a Claude plugin — it's a standalone CLI that builds a local SQLite knowledge graph of a repo and exposes it to agents via an MCP server (`codegraph_explore`) plus a `codegraph` shell command. It lets agents answer "how does X work / where is X / what breaks if I change X" in one call instead of a grep+read loop, with the call graph and blast radius included. It pairs well with `typescript-lsp` (LSP = precise jumps; CodeGraph = whole-graph reasoning).
+
+It manages its own per-machine config, so it's bootstrapped separately from the plugins above:
+
+```bash
+# 1. Install the CLI (once per machine)
+curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh
+
+# 2. Wire up your agents (Claude Code / Cursor / Codex) — global, once per machine.
+#    Writes a CodeGraph block into ~/.claude/CLAUDE.md and registers the MCP server.
+codegraph install
+
+# 3. Index a repo (once per repo; auto-syncs via file watcher after)
+cd <your-repo>
+codegraph init
+```
+
+Add `.codegraph/` to the repo's `.gitignore` — it's a local index that auto-rebuilds.
+
 ## Plugins included
 
 | Plugin | Purpose | Upstream |
