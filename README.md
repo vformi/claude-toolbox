@@ -121,6 +121,19 @@ Both auto-trigger on feature work. The `toolkit-router` skill in `vformi-toolkit
 
 All upstream refs are pinned to `main` in `.claude-plugin/marketplace.json`. To pin to a specific tag or sha for reproducibility, edit the `ref` field of the entry and `git push`. Users then run `/plugin marketplace update claude-toolbox` to fetch the new pin.
 
+## Recommended companion tools
+
+These are not Claude Code plugins, so they are not in the marketplace or `enabledPlugins` list above. They are separate CLI tools, installed once per machine (or once per repo, for CodeGraph), that cut token usage during coding sessions.
+
+| Tool | Scope | What it does | Install | Usage |
+|------|-------|---------------|---------|-------|
+| [CodeGraph](https://github.com/colbymchenry/codegraph) | Per-repo | Local SQLite knowledge graph of a repo's symbols, edges, and files. One query returns a symbol's verbatim source plus its call paths, including dynamic-dispatch hops grep can't follow. | `curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh \| sh`, then `codegraph install` (one-time, configures Claude Code/Cursor/Codex), then `codegraph init` inside each repo you want indexed. | Agents: MCP tool `codegraph_explore`, or `codegraph explore "<question>"`. Humans: same command from the repo root. The index auto-syncs via a file watcher after `init` — no manual rebuilds. |
+| [RTK](https://github.com/rtk-ai/rtk) | Global (machine-wide) | Rust CLI proxy that filters, groups, truncates, and deduplicates the output of 100+ common commands (`git`, `npm`, `aws`, `cat`, `grep`, `ls`, ...) before an agent reads it — cuts up to 90% of bash output tokens. | `brew install rtk`, then `rtk init -g`. Answer `y` when it asks to patch `~/.claude/settings.json` (or run `rtk init -g --auto-patch` for a non-interactive shell). It also writes `~/.claude/RTK.md` and adds an `@RTK.md` reference to the global CLAUDE.md — no per-repo setup. | Restart Claude Code, then verify with `rtk init --show`. After that it's transparent — `git status` is automatically rewritten to `rtk git status`. Run `rtk gain` to see savings. Only rewrites Bash tool calls; `Read`/`Grep`/`Glob` bypass it. |
+
+**Overlap with `typescript-lsp` and CodeGraph (intentional, not a conflict):** `typescript-lsp` and CodeGraph answer semantic/structural code questions directly, so the Bash tool — and RTK's hook — never fires for those. RTK only compresses the remaining raw shell commands (git, package managers, cloud CLIs, log tailing) that the other two don't touch.
+
+**CLAUDE.md additions:** see [`docs/recommended-CLAUDE.md`](docs/recommended-CLAUDE.md) for a copy-paste template — engineering principles and a CodeGraph pointer snippet — to add to the CLAUDE.md of the project you're actually coding in. It does not apply to `claude-toolbox` itself.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).

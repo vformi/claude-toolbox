@@ -97,10 +97,8 @@
       "author": { "name": "Julius Brussee", "url": "https://github.com/JuliusBrussee" },
       "category": "productivity",
       "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/JuliusBrussee/caveman.git",
-        "path": ".",
-        "ref": "main"
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
       },
       "homepage": "https://github.com/JuliusBrussee/caveman"
     },
