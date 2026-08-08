@@ -85,27 +85,6 @@ After install, run `/reload-plugins` (or restart).
 
 This is necessary after I bump any upstream `ref` in `marketplace.json`. Skipping the `update` will leave you on the cached version.
 
-## CodeGraph (code intelligence, separate setup)
-
-[CodeGraph](https://github.com/colbymchenry/codegraph) is **not** a Claude plugin — it's a standalone CLI that builds a local SQLite knowledge graph of a repo and exposes it to agents via an MCP server (`codegraph_explore`) plus a `codegraph` shell command. It lets agents answer "how does X work / where is X / what breaks if I change X" in one call instead of a grep+read loop, with the call graph and blast radius included. It pairs well with `typescript-lsp` (LSP = precise jumps; CodeGraph = whole-graph reasoning).
-
-It manages its own per-machine config, so it's bootstrapped separately from the plugins above:
-
-```bash
-# 1. Install the CLI (once per machine)
-curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh
-
-# 2. Wire up your agents (Claude Code / Cursor / Codex) — global, once per machine.
-#    Writes a CodeGraph block into ~/.claude/CLAUDE.md and registers the MCP server.
-codegraph install
-
-# 3. Index a repo (once per repo; auto-syncs via file watcher after)
-cd <your-repo>
-codegraph init
-```
-
-Add `.codegraph/` to the repo's `.gitignore` — it's a local index that auto-rebuilds.
-
 ## Plugins included
 
 | Plugin | Purpose | Upstream |
@@ -148,7 +127,7 @@ These are not Claude Code plugins, so they are not in the marketplace or `enable
 
 | Tool | Scope | What it does | Install | Usage |
 |------|-------|---------------|---------|-------|
-| [CodeGraph](https://github.com/colbymchenry/codegraph) | Per-repo | Local SQLite knowledge graph of a repo's symbols, edges, and files. One query returns a symbol's verbatim source plus its call paths, including dynamic-dispatch hops grep can't follow. | `curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh \| sh`, then `codegraph install` (one-time, configures Claude Code/Cursor/Codex), then `codegraph init` inside each repo you want indexed. | Agents: MCP tool `codegraph_explore`, or `codegraph explore "<question>"`. Humans: same command from the repo root. The index auto-syncs via a file watcher after `init` — no manual rebuilds. |
+| [CodeGraph](https://github.com/colbymchenry/codegraph) | Per-repo | Local SQLite knowledge graph of a repo's symbols, edges, and files. One query returns a symbol's verbatim source plus its call paths, including dynamic-dispatch hops grep can't follow. | `curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh \| sh`, then `codegraph install` (one-time, configures Claude Code/Cursor/Codex), then `codegraph init` inside each repo you want indexed. Add `.codegraph/` to that repo's `.gitignore` — it's a local index that auto-rebuilds. | Agents: MCP tool `codegraph_explore`, or `codegraph explore "<question>"`. Humans: same command from the repo root. The index auto-syncs via a file watcher after `init` — no manual rebuilds. |
 | [RTK](https://github.com/rtk-ai/rtk) | Global (machine-wide) | Rust CLI proxy that filters, groups, truncates, and deduplicates the output of 100+ common commands (`git`, `npm`, `aws`, `cat`, `grep`, `ls`, ...) before an agent reads it — cuts up to 90% of bash output tokens. | `brew install rtk`, then `rtk init -g`. Answer `y` when it asks to patch `~/.claude/settings.json` (or run `rtk init -g --auto-patch` for a non-interactive shell). It also writes `~/.claude/RTK.md` and adds an `@RTK.md` reference to the global CLAUDE.md — no per-repo setup. | Restart Claude Code, then verify with `rtk init --show`. After that it's transparent — `git status` is automatically rewritten to `rtk git status`. Run `rtk gain` to see savings. Only rewrites Bash tool calls; `Read`/`Grep`/`Glob` bypass it. |
 
 **Overlap with `typescript-lsp` and CodeGraph (intentional, not a conflict):** `typescript-lsp` and CodeGraph answer semantic/structural code questions directly, so the Bash tool — and RTK's hook — never fires for those. RTK only compresses the remaining raw shell commands (git, package managers, cloud CLIs, log tailing) that the other two don't touch.
